@@ -2,7 +2,7 @@
     "name": "redis-pipe",
     "version": "1.0.2",
     "main": "release/index",
-    "types": "release/index",
+    "types": "release/declaration/index",
     "repository": "git@github.com:Ted-Mohamed/redis-pipe.git",
     "author": "Mohamed Meftah <mohamed-ted@live.com>",
     "license": "MIT",
