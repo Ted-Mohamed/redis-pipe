@@ -1,37 +1,8 @@
 import { createReadStream } from 'fs'
-import * as path from 'path'
-import { Transform } from 'stream'
+import { join as joinPath } from 'path'
 import { spawn } from 'child_process'
-
-function GenerateRedisProtocol(...parts: string[]) {
-    return parts.reduce((output, part) => {
-        return output + `$${part.length}\r\n${part}\r\n`
-    }, '*3\r\n')
-}
-
-class LineSplitter extends Transform {
-    forEachLine: (l: string) => any
-    private buffer: string
-    constructor(forEachLine = l => l, encoding = 'utf8') {
-        super({ encoding })
-        this.buffer = ''
-        this.forEachLine = forEachLine
-    }
-
-    _transform(chunk, encoding, done) {
-        this.buffer += chunk.toString()
-        let lines = this.buffer.split(/\r?\n/)
-        this.buffer = lines.pop()!
-        lines.forEach(line => this.push(this.forEachLine(line)))
-        done()
-    }
-
-    _flush(done) {
-        if (this.buffer) this.push(this.forEachLine(this.buffer))
-        this.buffer = ''
-        done()
-    }
-}
+import LineSplitter from './LineSplitter'
+import GenerateRedisProtocol from './RedisProtocolGenerator'
 
 const defaultOptions = { host: '127.0.0.1', port: '6379', password: '' }
 
@@ -53,7 +24,7 @@ export default async (file, { host, port, password } = defaultOptions) =>
             resolve()
         })
 
-        createReadStream(path.join(process.cwd(), file))
+        createReadStream(joinPath(process.cwd(), file))
             .pipe(transformer)
             .pipe(redisPipe.stdin)
     })

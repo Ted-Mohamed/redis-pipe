@@ -1,15 +1,19 @@
 {
     "name": "redis-pipe",
     "version": "1.0.0",
-    "main": "./release/index.js",
+    "main": "release/index",
+    "types": "release/index",
     "repository": "git@github.com:Ted-Mohamed/redis-pipe.git",
     "author": "Mohamed Meftah <mohamed-ted@live.com>",
     "license": "MIT",
     "scripts": {
         "test": "jest",
-        "prepublish": "tsc"
+        "prepublish": "npm run-script build",
+        "build": "tsc"
     },
-    "files": ["/release"],
+    "files": [
+        "/release"
+    ],
     "devDependencies": {
         "@types/jest": "^22.2.2",
         "@types/node": "^9.6.1",
@@ -22,6 +26,13 @@
             "^.+\\.tsx?$": "ts-jest"
         },
         "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json",
+            "node"
+        ]
     }
 }
