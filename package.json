@@ -7,9 +7,11 @@
     "author": "Mohamed Meftah <mohamed-ted@live.com>",
     "license": "MIT",
     "scripts": {
+        "clean": "rimraf release",
         "test": "jest",
-        "prepublishOnly": "npm run-script build",
-        "build": "tsc"
+        "build": "tsc",
+        "watch:build": "tsc --watch",
+        "prepublishOnly": "npm run build"
     },
     "files": [
         "/release"
@@ -18,6 +20,7 @@
         "@types/jest": "^22.2.2",
         "@types/node": "^9.6.1",
         "jest": "^22.4.3",
+        "rimraf": "^2.6.2",
         "ts-jest": "^22.4.2",
         "typescript": "^2.8.1"
     },

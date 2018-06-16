@@ -1,5 +1,4 @@
 import { spawn } from 'child_process'
-import { Writable } from 'stream'
 
 const defaults = {
     host: '127.0.0.1',
@@ -15,7 +14,7 @@ export default function({
     password,
     out,
     error
-} = defaults): Writable {
+} = defaults): NodeJS.WritableStream {
     const options = ['--pipe', '-h', host, '-p', port, '-a', password]
 
     const RedisPipe = spawn('redis-cli', options)
