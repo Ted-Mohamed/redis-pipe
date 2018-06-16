@@ -1,30 +1,27 @@
-import { createReadStream } from 'fs'
-import { join as joinPath } from 'path'
 import { spawn } from 'child_process'
-import LineSplitter from './LineSplitter'
-// import GenerateRedisProtocol from './RedisProtocolGenerator'
+import { Writable } from 'stream'
 
-const defaultOptions = { host: '127.0.0.1', port: '6379', password: '' }
+const defaults = {
+    host: '127.0.0.1',
+    port: '6379',
+    password: '',
+    out: process.stdout,
+    error: process.stderr
+}
 
-export default async (file, { host, port, password } = defaultOptions) =>
-    new Promise((resolve, reject) => {
-        const options = ['--pipe', '-h', host, '-p', port, '-a', password]
-        const redisPipe = spawn('redis-cli', options)
+export default function({
+    host,
+    port,
+    password,
+    out,
+    error
+} = defaults): Writable {
+    const options = ['--pipe', '-h', host, '-p', port, '-a', password]
 
-        // redisPipe.stdout.setEncoding('utf8')
-        // redisPipe.stdout.pipe(process.stdout)
-        // redisPipe.stderr.pipe(process.stderr)
+    const RedisPipe = spawn('redis-cli', options)
+    RedisPipe.stdout.setEncoding('utf8')
+    RedisPipe.stdout.pipe(out)
+    RedisPipe.stderr.pipe(error)
 
-        let transformer = new LineSplitter(line => {
-            // return GenerateRedisProtocol('SADD', 'stuf', line)
-        })
-
-        transformer.on('end', () => {
-            redisPipe.stdin.end()
-            resolve()
-        })
-
-        createReadStream(joinPath(process.cwd(), file))
-            .pipe(transformer)
-            .pipe(redisPipe.stdin)
-    })
+    return RedisPipe.stdin
+}
