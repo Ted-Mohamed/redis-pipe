@@ -2,7 +2,7 @@ import { createReadStream } from 'fs'
 import { join as joinPath } from 'path'
 import { spawn } from 'child_process'
 import LineSplitter from './LineSplitter'
-import GenerateRedisProtocol from './RedisProtocolGenerator'
+// import GenerateRedisProtocol from './RedisProtocolGenerator'
 
 const defaultOptions = { host: '127.0.0.1', port: '6379', password: '' }
 
@@ -16,7 +16,7 @@ export default async (file, { host, port, password } = defaultOptions) =>
         // redisPipe.stderr.pipe(process.stderr)
 
         let transformer = new LineSplitter(line => {
-            return GenerateRedisProtocol('SADD', 'stuf', line)
+            // return GenerateRedisProtocol('SADD', 'stuf', line)
         })
 
         transformer.on('end', () => {

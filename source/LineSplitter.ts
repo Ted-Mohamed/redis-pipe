@@ -1,4 +1,4 @@
-import { Transform } from "stream";
+import { Transform } from 'stream'
 
 export default class LineSplitter extends Transform {
     forEachLine: (l: string) => any
