@@ -23,3 +23,8 @@ export function SimpleString(s: string) {
 export function Error(e: string) {
     return `-${e}\r\n`
 }
+
+export const Commands = {
+    SADD: BulkString('SADD'),
+    DEL: BulkString('DEL')
+}
