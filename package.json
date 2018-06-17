@@ -1,6 +1,6 @@
 {
     "name": "redis-pipe",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "main": "release/index",
     "types": "release/declaration/index",
     "repository": "git@github.com:Ted-Mohamed/redis-pipe.git",
