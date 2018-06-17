@@ -25,5 +25,5 @@ export default function({
     return RedisPipe.stdin
 }
 
-import { ArrayOfSize, BulkString } from './Encoder'
-export const Encoder = { ArrayOfSize, BulkString }
+import * as Encoder from './Encoder'
+export { Encoder }
