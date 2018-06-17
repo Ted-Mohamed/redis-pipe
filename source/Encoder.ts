@@ -12,8 +12,8 @@ export function Array(a: string[]) {
     return `*${a.length}\r\n` + a.join('')
 }
 
-export function ArraySize(a: any[]) {
-    return `*${a.length}\r\n`
+export function ArrayOfSize(s: number) {
+    return `*${s}\r\n`
 }
 
 export function SimpleString(s: string) {

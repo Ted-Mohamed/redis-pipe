@@ -8,8 +8,8 @@ test('Encoder is defined', () => {
     expect(Encoder).toBeDefined()
 })
 
-test('Encoder expose ArraySize', () => {
-    expect(Encoder.ArraySize).toBeDefined()
+test('Encoder expose ArrayOfSize', () => {
+    expect(Encoder.ArrayOfSize).toBeDefined()
 })
 
 test('Encoder expose BulkString', () => {

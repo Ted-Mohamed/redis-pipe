@@ -1,6 +1,6 @@
 import {
     Array,
-    ArraySize,
+    ArrayOfSize,
     BulkString,
     SimpleString,
     Integer,
@@ -58,15 +58,15 @@ test('Correctly encode an empty string', () => {
 })
 
 test('ArraySize encoder defined', () => {
-    expect(ArraySize).toBeDefined()
+    expect(ArrayOfSize).toBeDefined()
 })
 
 test('Correctly encode the size of an array', () => {
-    expect(ArraySize(['foo', 'bar'])).toEqual('*2\r\n')
+    expect(ArrayOfSize(2)).toEqual('*2\r\n')
 })
 
 test('Correctly encode the size of an empty array', () => {
-    expect(ArraySize([])).toEqual('*0\r\n')
+    expect(ArrayOfSize(0)).toEqual('*0\r\n')
 })
 
 test('Correctly encode a command', () => {
@@ -74,7 +74,7 @@ test('Correctly encode a command', () => {
 
     let encodedCommand = command.reduce(
         (o, c) => o + BulkString(c),
-        ArraySize(command)
+        ArrayOfSize(command.length)
     )
     expect(encodedCommand).toEqual(
         '*3\r\n$3\r\nSET\r\n$3\r\nkey\r\n$5\r\nvalue\r\n'
